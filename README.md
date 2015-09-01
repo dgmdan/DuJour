@@ -4,3 +4,12 @@
 Rule #1: If anyone changes the name of this repo or compliments alex or his code, they are perma-banned.
 
 Rule #2: Alex is a bitch.
+
+
+## Tech Stack
+Django (1.8)
+Python (3.4)
+nginx
+sqlite
+blah
+
