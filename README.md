@@ -28,13 +28,13 @@ sqlite Documentation - https://www.sqlite.org/docs.html
 ## Setting up dev environment
 * Install Python
 * Install virtualenvwrapper and create a virtualenv for this project:
-
- $ pip install virtualenvwrapper
- $ export WORKON_HOME=~/envs
- $ mkdir -p $WORKON_HOME
- $ source /usr/local/bin/virtualenvwrapper.sh
- $ mkvirtualenv dujour
-
+```
+pip install virtualenvwrapper
+export WORKON_HOME=~/envs
+mkdir -p $WORKON_HOME
+source /usr/local/bin/virtualenvwrapper.sh
+mkvirtualenv dujour
+```
 * Change to this repo's directory
 * Install dependencies: ```pip install -r requirements.txt```
 * Create database: ```./manage.py migrate```
