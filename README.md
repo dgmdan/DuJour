@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.org/nihalpd/DuJour.svg?branch=develop)](https://travis-ci.org/nihalpd/DuJour)
+[![Coverage Status](https://coveralls.io/repos/nihalpd/DuJour/badge.svg?branch=develop&service=github)](https://coveralls.io/github/nihalpd/DuJour?branch=develop)
 # DuJour
-## "It's the soup of the day."
+
+ "It's the soup of the day."
+
+
 
 ## Tech Stack
 Django (1.8)
