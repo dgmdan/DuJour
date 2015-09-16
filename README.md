@@ -1,4 +1,5 @@
-# DuJour - "It's the soup of the day."
+# DuJour
+## "It's the soup of the day."
 
 ## Tech Stack
 Django (1.8)
