@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
-# Create your views here.
+class OrderFormView(TemplateView):
+    template_name = "mainsite/order_form.html"
