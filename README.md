@@ -28,7 +28,10 @@ sqlite Documentation - https://www.sqlite.org/docs.html
 ## Setting up dev environment
 * Install Python 3.4
 * Create a venv for this project.
-** On Windows: Add to your PATH: ```C:\Python34\Tools\Scripts;C:\PythonEnvs\DuJour```
+On Windows:
+
+Add to your PATH: ```C:\Python34\Tools\Scripts;C:\PythonEnvs\DuJour```
+
 Then run this in a command prompt:
 ```
 mkdir C:\PythonEnvs
