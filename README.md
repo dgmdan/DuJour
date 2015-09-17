@@ -26,15 +26,17 @@ sqlite Documentation - https://www.sqlite.org/docs.html
 
 
 ## Setting up dev environment
-* Install Python
-* Install virtualenvwrapper and create a virtualenv for this project:
+* Install Python 3.4
+* Create a venv for this project.
+** On Windows: Add to your PATH: ```C:\Python34\Tools\Scripts;C:\PythonEnvs\DuJour```
+Then run this in a command prompt:
 ```
-pip install virtualenvwrapper
-export WORKON_HOME=~/envs
-mkdir -p $WORKON_HOME
-source /usr/local/bin/virtualenvwrapper.sh
-mkvirtualenv dujour
+mkdir C:\PythonEnvs
+./pyvenv.py C:\PythonEnvs\DuJour
 ```
+Now whenever you want to use this venv, run ```C:\PythonEnvs\dujour\Scripts\activate.bat``` in your command prompt. Any PIP installs/uninstall you run will be local to this venv.
+
+Linux users: figure it out yourself and put the commands here!
 * Change to this repo's directory
 * Install dependencies: ```pip install -r requirements.txt```
 * Create database: ```./manage.py migrate```
