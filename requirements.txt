@@ -1,5 +1,2 @@
 Django==1.8.4
-django-social-auth==0.7.28
-httplib2==0.9.1
-oauth2==1.9.0.post1
-python-openid==2.2.5
+urllib3==1.12

@@ -17,12 +17,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from mainsite.views import AuthComplete, LoginError, OrderFormView
+from mainsite.views import OrderFormView
 
 urlpatterns = [
     url(r'^$', login_required(OrderFormView.as_view()), name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^complete/(?P<backend>[^/]+)/$', AuthComplete.as_view()),
-    url(r'^login-error/$', LoginError.as_view()),
-    url(r'', include('social.apps.django_app.urls', namespace='social')),
 ]
