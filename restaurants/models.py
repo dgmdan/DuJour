@@ -2,6 +2,10 @@ from django.db import models
 from django.core.exceptions import ValidationError
 import os
 
+def validate_file_extension(value):
+    if not (value.name.endswith('.png') or value.name.endswith('.jpg')):
+        raise ValidationError(u'Please upload a PNG or JPG file only')
+
 class Restaurant(models.Model):
     is_active = models.BooleanField(default=True)
     name = models.CharField(max_length=200)
@@ -30,9 +34,5 @@ class DayRestaurant(models.Model):
     day_of_week = models.IntegerField(choices=DAY_CHOICES)
 
 class Menu(models.Model):
-    def validate_file_extension(value):
-        if not (value.name.endswith('.png') or value.name.endswith('.jpg')):
-            raise ValidationError(u'Please upload a PNG or JPG file only')
-
     restaurant = models.ForeignKey(Restaurant)
     file = models.FileField(upload_to='menus/', validators=[validate_file_extension])
