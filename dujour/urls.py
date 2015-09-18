@@ -22,4 +22,5 @@ from mainsite.views import OrderFormView
 urlpatterns = [
     url(r'^$', login_required(OrderFormView.as_view()), name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('allauth.urls')),
 ]
