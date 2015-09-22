@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import restaurants.models
+import dujour.restaurants.models
 
 
 class Migration(migrations.Migration):
@@ -20,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='menu',
             name='file',
-            field=models.FileField(upload_to='menus/', validators=[restaurants.models.validate_file_extension]),
+            field=models.FileField(upload_to='menus/', validators=[dujour.restaurants.models.validate_file_extension]),
         ),
     ]

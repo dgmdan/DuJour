@@ -42,8 +42,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'mainsite',
-    'restaurants',
+    'dujour.mainsite',
+    'dujour.restaurants',
 )
 
 SITE_ID = 1

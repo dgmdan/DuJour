@@ -1,5 +1,5 @@
 from django.contrib import admin
-from restaurants.models import Restaurant, DayRestaurant, Menu
+from dujour.restaurants.models import Restaurant, DayRestaurant, Menu
 
 # Register your models here.
 
