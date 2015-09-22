@@ -42,6 +42,11 @@ mkdir C:\PythonEnvs
 Now whenever you want to use this venv, run ```C:\PythonEnvs\dujour\Scripts\activate.bat``` in your command prompt. Any PIP installs/uninstall you run will be local to this venv.
 
 Linux users: figure it out yourself and put the commands here!
+
+For Ubuntu, one thing you'll have to do is install these packages:
+```
+sudo apt-get install python3-dev freetds-dev
+```
 * Change to this repo's directory
 * Install dependencies: ```pip install -r requirements.txt```
 * Create database: ```./manage.py migrate```
