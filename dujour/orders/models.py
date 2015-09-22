@@ -14,6 +14,6 @@ class Order(models.Model):
     soup_size = models.CharField(max_length=20, blank=True)
     notes = models.CharField(max_length=255, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.body
 

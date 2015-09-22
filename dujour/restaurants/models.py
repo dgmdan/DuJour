@@ -13,7 +13,7 @@ class Restaurant(models.Model):
     fax = models.CharField(max_length=20, blank=True)
     website = models.CharField(max_length=255)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class DayRestaurant(models.Model):
