@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'dujour.lunchpac',
     'dujour.mainsite',
     'dujour.restaurants',
 )
