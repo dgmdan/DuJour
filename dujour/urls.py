@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from mainsite.views import OrderFormView
+from dujour.mainsite.views import OrderFormView
 
 urlpatterns = [
     url(r'^$', login_required(OrderFormView.as_view()), name='home'),
