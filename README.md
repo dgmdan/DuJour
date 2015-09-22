@@ -4,15 +4,17 @@
 
  "It's the soup of the day."
 
-DuJour is a Web app designed to collect lunch orders around the office.
+DuJour is a Django web app designed to collect lunch orders around the office.
+
+We're in early development so functionality is minimal for now.
 
 
 
 ## Tech Stack
-Django (1.8)
-Python (3.4)
-nginx
-sqlite3
+* Django (1.8.4)
+* Python (3.4.2)
+* nginx
+* sqlite3
 
 
 ## Documentation
