@@ -4,6 +4,7 @@ python:
   - "3.4"
 install:
   - pip install -r requirements.txt
+  - sudo apt-get install python3-dev freetds-dev
 script:
   - python manage.py migrate
   - python manage.py runserver
