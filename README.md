@@ -4,15 +4,17 @@
 
  "It's the soup of the day."
 
-DuJour is a Web app designed to collect lunch orders around the office.
+DuJour is a Django web app designed to collect lunch orders around the office.
+
+We're in early development so functionality is minimal for now.
 
 
 
 ## Tech Stack
-Django (1.8)
-Python (3.4)
-nginx
-sqlite3
+* Django (1.8.4)
+* Python (3.4.2)
+* nginx
+* sqlite3
 
 
 ## Documentation
@@ -40,6 +42,11 @@ mkdir C:\PythonEnvs
 Now whenever you want to use this venv, run ```C:\PythonEnvs\dujour\Scripts\activate.bat``` in your command prompt. Any PIP installs/uninstall you run will be local to this venv.
 
 Linux users: figure it out yourself and put the commands here!
+
+For Ubuntu, one thing you'll have to do is install these packages:
+```
+sudo apt-get install python3-dev freetds-dev
+```
 * Change to this repo's directory
 * Install dependencies: ```pip install -r requirements.txt```
 * Create database: ```./manage.py migrate```

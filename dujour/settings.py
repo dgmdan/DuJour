@@ -36,11 +36,18 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
-    # 'social.apps.django_app.default',
-    'mainsite',
-    'restaurants',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'dujour.lunchpac',
+    'dujour.mainsite',
+    'dujour.restaurants',
 )
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,7 +65,7 @@ ROOT_URLCONF = 'dujour.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,  'templates')],
+        'DIRS': [os.path.join(BASE_DIR,  'dujour', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,12 +112,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.google.GoogleOAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
-LOGIN_REDIRECT_URL = '/'
 
-GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('DUJOUR_GOOGLE_CLIENT_ID')
-GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('DUJOUR_GOOGLE_CLIENT_SECRET')
-GOOGLE_WHITE_LISTED_DOMAINS = ['workwave.com']
-SOCIAL_AUTH_USER_MODEL = 'auth.User'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+SOCIALACCOUNT_PROVIDERS = \
+    { 'google':
+        { 'SCOPE': ['profile', 'email'],
+          'AUTH_PARAMS': { 'access_type': 'online' } }}
+ACCOUNT_USERNAME_REQUIRED = False
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
