@@ -67,3 +67,7 @@ db.sqlite3
 
 # Django secrets
 /client_secrets.json
+
+# Sublime
+*.sublime-workspace
+*.sublime-project
