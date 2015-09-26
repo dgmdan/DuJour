@@ -2,7 +2,13 @@ sudo: false
 language: python
 python: 
   - "3.4"
-install: 
-	- pip install -r requirements.txt
+addons:
+  apt:
+     packages:
+       - python3-dev
+       - freetds-dev
+install:
+  - pip install -r requirements.txt
 script:
-	- python manage.py test
+  - python manage.py migrate
+  - python manage.py runserver
