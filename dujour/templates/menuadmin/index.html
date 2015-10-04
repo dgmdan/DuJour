@@ -1,1 +1,7 @@
-Index for menu admin
+<p>Please select a restaurant to administer:</p>
+
+<ul>
+{% for restaurant in object_list %}
+  <li><a href="{% url 'menu_admin_restaurant' restaurant.id %}">{{ restaurant.name }}</a></li>
+{% endfor %}
+</ul>

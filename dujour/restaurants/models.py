@@ -35,4 +35,4 @@ class DayRestaurant(models.Model):
 
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant)
-    file = models.FileField(upload_to='menus/', validators=[validate_file_extension])
+    file = models.FileField(upload_to='static/menus/', validators=[validate_file_extension])
