@@ -1,1 +1,15 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block js-headers %}
+<script src="{% static 'dujour/js/leaflet-src.js' %}"></script>
+{% endblock %}
+
+{% block css-headers %}
+<link rel="stylesheet" href="{% static 'dujour/css/leaflet.css' %}" />
+{% endblock %}
+
+{% block content %}
 You're viewing a menu.
+{% endblock %}

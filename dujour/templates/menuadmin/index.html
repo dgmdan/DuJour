@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <p>Please select a restaurant to administer:</p>
 
 <ul>
@@ -5,3 +8,4 @@
   <li><a href="{% url 'menu_admin_restaurant' restaurant.id %}">{{ restaurant.name }}</a></li>
 {% endfor %}
 </ul>
+{% endblock %}

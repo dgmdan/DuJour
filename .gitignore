@@ -65,8 +65,8 @@ target/
 # Local dev database
 db.sqlite3
 
-# Django static files
-/static/
+# Certain Django static files
+/static/menus/
 
 # Django secrets
 /client_secrets.json
