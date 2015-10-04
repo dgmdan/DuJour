@@ -59,6 +59,9 @@ target/
 # PyCharm/IntelliJ IDEA
 .idea/
 
+# OS X
+.DS_Store
+
 # Local dev database
 db.sqlite3
 
