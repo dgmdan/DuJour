@@ -5,6 +5,7 @@
 
 {% block js-headers %}
 <script src="{% static 'dujour/js/leaflet-src.js' %}"></script>
+<script src="{% static 'dujour/js/leaflet-areaselect.js' %}"></script>
 {% endblock %}
 
 {% block js-body %}
@@ -14,7 +15,7 @@ var map = L.map('map', {
   minZoom: 20,
   maxZoom: 23,
   center: [0, 0],
-  zoom: 21,
+  zoom: 22,
   crs: L.CRS.Simple
 });
 
@@ -39,9 +40,12 @@ map.setMaxBounds(bounds);
 
 {% block css-headers %}
 <link rel="stylesheet" href="{% static 'dujour/css/leaflet.css' %}" />
+<link rel="stylesheet" href="{% static 'dujour/css/leaflet-areaselect.css' %}" />
 <link rel="stylesheet" href="{% static 'dujour/css/menuadmin.css' %}" />
 {% endblock %}
 
 {% block content %}
 <div id="map"></div>
+
+<input type="button" id="butSelectMenuItem" value="Select menu item"/>
 {% endblock %}
