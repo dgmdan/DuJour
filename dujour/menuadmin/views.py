@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from dujour.restaurants.models import Restaurant, Menu
+from dujour.restaurants.models import Restaurant, Menu, MenuItem, MenuItemRegion
 from dujour.menuadmin.forms import CreateItemAndRegionForm
 
 class MenuAdminIndexView(ListView):
@@ -20,7 +20,7 @@ class MenuAdminMenuView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(MenuAdminMenuView, self).get_context_data(**kwargs)
-        # context['book_list'] = Book.objects.all()
+        context['region_list'] = MenuItemRegion.objects.filter(menu_item__menu__id=self.object.id)
         return context
 
 
@@ -32,4 +32,3 @@ class CreateItemAndRegionView(FormView):
     def form_valid(self, form):
         form.create_item_and_region()
         return super(CreateItemAndRegionView, self).form_valid(form)
-        

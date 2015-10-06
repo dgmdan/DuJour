@@ -69,6 +69,11 @@ function my_js_callback(data){
     alert(data.message);
 }
 
+// draw existing regions
+{% for region in region_list %}
+	L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map);
+{% endfor %}
+
 </script>
 {% endblock %}
 
