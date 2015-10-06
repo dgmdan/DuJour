@@ -36,3 +36,21 @@ class DayRestaurant(models.Model):
 class Menu(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     file = models.ImageField(upload_to='static/menus/', validators=[validate_file_extension])
+
+class MenuItem(models.Model):
+    menu = models.ForeignKey(Menu)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(decimal_places=6,max_digits=9)
+
+class MenuItemType(models.Model):
+    menu_item = models.ForeignKey(MenuItem)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(decimal_places=6,max_digits=9)
+
+class MenuItemRegion(models.Model):
+    menu_item = models.ForeignKey(MenuItem)
+    menu_item_type = models.ForeignKey(MenuItemType, null=True)
+    sw_lng = models.FloatField()
+    sw_lat = models.FloatField()
+    ne_lng = models.FloatField()
+    ne_lat = models.FloatField()

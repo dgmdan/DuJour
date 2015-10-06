@@ -5,7 +5,7 @@
 
 {% block js-headers %}
 <script src="{% static 'dujour/js/leaflet-src.js' %}"></script>
-<script src="{% static 'dujour/js/leaflet-areaselect.js' %}"></script>
+<script src="{% static 'dujour/js/locationfilter.js' %}"></script>
 {% endblock %}
 
 {% block js-body %}
@@ -35,17 +35,56 @@ L.imageOverlay(url, bounds).addTo(map);
 
 // tell leaflet that the map is exactly as big as the image
 map.setMaxBounds(bounds);
+
+// add "select area" button to map
+var locationFilter = new L.LocationFilter().addTo(map);
+
+// bind button to input function
+$('#but-create').click(function() {
+	var bounds = locationFilter.getBounds();
+	$.ajax({
+        url : "{% url 'menu_admin_create_item_and_region' %}",
+        type : "POST",
+        dataType: "json", 
+        data : {
+            menu_id: {{ object.id }},
+            menu_item_name: $('#menu_item_name').val(),
+            menu_item_price: $('#menu_item_price').val(),
+            ne_lat: bounds.getNorthEast().lat,
+            ne_lng: bounds.getNorthEast().lng,
+            sw_lat: bounds.getSouthWest().lat,
+            sw_lng: bounds.getSouthWest().lng,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+        success : function(json) {
+            alert(json.server_response);
+        },
+        error : function(xhr,errmsg,err) {
+            alert(xhr.status + ": " + xhr.responseText);
+        }
+    });
+});
+
+function my_js_callback(data){
+    alert(data.message);
+}
+
 </script>
 {% endblock %}
 
 {% block css-headers %}
 <link rel="stylesheet" href="{% static 'dujour/css/leaflet.css' %}" />
-<link rel="stylesheet" href="{% static 'dujour/css/leaflet-areaselect.css' %}" />
+<link rel="stylesheet" href="{% static 'dujour/css/locationfilter.css' %}" />
 <link rel="stylesheet" href="{% static 'dujour/css/menuadmin.css' %}" />
 {% endblock %}
 
 {% block content %}
 <div id="map"></div>
 
-<input type="button" id="butSelectMenuItem" value="Select menu item"/>
+<div id=""
+<p>
+	Menu item name: <input type="text" id="menu_item_name"/><br/>
+	Menu item price: <input type="text" id="menu_item_price"/><br/>
+	<input type="button" id="but-create" value="Create menu item"/>
+</p>
 {% endblock %}
