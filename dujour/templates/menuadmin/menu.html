@@ -41,8 +41,8 @@ var locationFilter = new L.LocationFilter().addTo(map);
 
 // bind button to input function
 $('#but-create').click(function() {
-	var bounds = locationFilter.getBounds();
-	$.ajax({
+    var bounds = locationFilter.getBounds();
+    $.ajax({
         url : "{% url 'menu_admin_create_item_and_region' %}",
         type : "POST",
         dataType: "json", 
@@ -57,10 +57,19 @@ $('#but-create').click(function() {
             csrfmiddlewaretoken: '{{ csrf_token }}',
             },
         success : function(json) {
-            alert(json.server_response);
+            if (json['status'] === 'success')
+            {
+                $('#menu_item_name').val('');
+                locationFilter.disable();
+                L.rectangle([[bounds.getNorthEast().lat, bounds.getNorthEast().lng], [bounds.getSouthWest().lat, bounds.getSouthWest().lng]], {color: "#ff7800", weight: 1}).addTo(map);
+            }
+            else
+            {
+                alert('Error saving this region');
+            }
         },
         error : function(xhr,errmsg,err) {
-            alert(xhr.status + ": " + xhr.responseText);
+            alert('Error: ' + xhr.status + ': ' + xhr.responseText);
         }
     });
 });
@@ -71,7 +80,7 @@ function my_js_callback(data){
 
 // draw existing regions
 {% for region in region_list %}
-	L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map);
+    L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map);
 {% endfor %}
 
 </script>
@@ -88,8 +97,8 @@ function my_js_callback(data){
 
 <div id=""
 <p>
-	Menu item name: <input type="text" id="menu_item_name"/><br/>
-	Menu item price: <input type="text" id="menu_item_price"/><br/>
-	<input type="button" id="but-create" value="Create menu item"/>
+    Menu item name: <input type="text" id="menu_item_name"/><br/>
+    Menu item price: <input type="text" id="menu_item_price"/><br/>
+    <input type="button" id="but-create" value="Create menu item"/>
 </p>
 {% endblock %}

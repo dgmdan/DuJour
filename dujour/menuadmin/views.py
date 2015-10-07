@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
@@ -25,10 +26,11 @@ class MenuAdminMenuView(DetailView):
 
 
 class CreateItemAndRegionView(FormView):
-    template_name = 'create_item_and_region.html'
     form_class = CreateItemAndRegionForm
-    success_url = 'create_item_and_region_success.html'
 
     def form_valid(self, form):
-        form.create_item_and_region()
-        return super(CreateItemAndRegionView, self).form_valid(form)
+        pk = form.create_item_and_region()
+        if self.request.is_ajax():
+            return JsonResponse({'status': 'success', 'pk': pk})
+        else:
+            return super(CreateItemAndRegionView, self).form_valid(form)

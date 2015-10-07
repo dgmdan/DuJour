@@ -18,3 +18,4 @@ class CreateItemAndRegionForm(forms.Form):
         menu_item_region = MenuItemRegion.objects.create(menu_item=menu_item, sw_lng=self.cleaned_data['sw_lng'],
                                                          sw_lat=self.cleaned_data['sw_lat'], ne_lng=self.cleaned_data['ne_lng'], 
                                                          ne_lat=self.cleaned_data['ne_lat'])
+        return menu_item_region.id
