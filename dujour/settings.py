@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'dujour.lunchpac',
     'dujour.mainsite',
     'dujour.menuadmin',
+    'dujour.orders',
     'dujour.restaurants',
 )
 
