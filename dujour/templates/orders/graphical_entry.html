@@ -1,3 +1,52 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load static %}
+
+{% block js-headers %}
+<script src="{% static 'dujour/js/leaflet-src.js' %}"></script>
+{% endblock %}
+
+{% block js-body %}
+<script type="text/javascript">
+var map = L.map('map', {
+  minZoom: 20,
+  maxZoom: 23,
+  center: [0, 0],
+  zoom: 22,
+  crs: L.CRS.Simple
+});
+
+// dimensions of the image
+var w = {{ object.file.width }},
+    h = {{ object.file.height }},
+    url = '/{{ object.file }}';
+
+// calculate the edges of the image, in coordinate space
+var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+var bounds = new L.LatLngBounds(southWest, northEast);
+
+// add the image overlay, 
+// so that it covers the entire map
+L.imageOverlay(url, bounds).addTo(map);
+
+// tell leaflet that the map is exactly as big as the image
+map.setMaxBounds(bounds);
+
+// draw menu item regions
+{% for region in region_list %}
+L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map).on('click', function(e) { editRegion({{region.id}}); });
+{% endfor %}
+
+</script>
+{% endblock %}
+
+{% block css-headers %}
+<link rel="stylesheet" href="{% static 'dujour/css/leaflet.css' %}" />
+<link rel="stylesheet" href="{% static 'dujour/css/graphical_entry.css' %}" />
+{% endblock %}
+
 {% block content %}
-<p>Graphical order entry will go here!</p>
-{% endblock content %}
+<div id="map"></div>
+{% endblock %}
