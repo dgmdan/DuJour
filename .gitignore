@@ -68,9 +68,6 @@ db.sqlite3
 # Certain Django static files
 /static/menus/
 
-# Django secrets
-/client_secrets.json
-
 # Sublime
 *.sublime-workspace
 *.sublime-project
