@@ -2,9 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="{% static 'dujour/css/jquery-ui.css' %}" rel="stylesheet"/>
 <script src="{% static 'dujour/js/jquery-2.1.4.js' %}"></script>
-{% block js-headers %}{% endblock %}
+<script src="{% static 'dujour/js/jquery-ui.js' %}"></script>
 {% block css-headers %}{% endblock %}
+{% block js-headers %}{% endblock %}
 </head>
 <body>
 {% block content %}{% endblock %}

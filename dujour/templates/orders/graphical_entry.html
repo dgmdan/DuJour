@@ -34,6 +34,56 @@ L.imageOverlay(url, bounds).addTo(map);
 // tell leaflet that the map is exactly as big as the image
 map.setMaxBounds(bounds);
 
+// open modal to ask for quantity + comments on item click
+$("#edit-dialog").dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		{
+			text: "Add to My Order",
+			click: function() {
+                $.ajax({
+                    url : "{% url 'graphical_place_order' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        menu_item_id: $('#menu-item-id').val(),
+                        quantity: $('#quantity').val(),
+                        comments: $('#comments').val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                    success : function(json) {
+                        if (json['status'] === 'success')
+                        {
+                            location.reload();
+                        }
+                        else
+                        {
+                            alert('Error saving this region');
+                        }
+                    },
+                    error : function(xhr,errmsg,err) {
+                        alert('Error: ' + xhr.status + ': ' + xhr.responseText);
+                    }
+                });
+				$(this).dialog("close");
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+
+function editRegion(menuItemId) {
+    $('#menu-item-id').val(menuItemId);
+	$("#edit-dialog").dialog('open');
+	event.preventDefault();
+}
+
 // draw menu item regions
 {% for region in region_list %}
 L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map).on('click', function(e) { editRegion({{region.id}}); });
@@ -48,5 +98,14 @@ L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {
 {% endblock %}
 
 {% block content %}
-<div id="map"></div>
+<div id="map">
+</div>
+
+<div id="edit-dialog" title="Add Item">
+    <input type="hidden" name="menu_item_id" id="menu-item-id"/>
+    <label for="quantity-field">Quantity</label>
+    <input type="text" id="quantity-field" name="quantity" value="1" size="2"/><br/>
+    <label for="comments-field">Special&nbsp;Instructions/Comments</label><br/>
+    <textarea id="comments-field" name="comments"></textarea>
+</div>
 {% endblock %}

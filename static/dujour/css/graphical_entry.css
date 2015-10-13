@@ -4,3 +4,21 @@
   border: 1px solid #ccc;
   margin-bottom: 10px;
 }
+
+input {
+  margin-top: -10px;
+}
+
+label {
+  float: left;
+  text-align: left;
+  margin-right: 15px;
+  width: 100px;
+  clear: both;
+}
+
+#comments-field {
+  clear: both;
+  width: 100%;
+  height: 80px;
+}
