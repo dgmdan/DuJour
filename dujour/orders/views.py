@@ -21,8 +21,8 @@ class GraphicalOrderEntryView(FormView):
         return context
 
     def form_valid(self, form):
-        pk = form.add_item()
-        if self.request.is_ajax():
-            return JsonResponse({'status': 'success', 'pk': pk})
-        else:
-            return super(GraphicalOrderEntryView, self).form_valid(form)
+        form.add_item(self.request.user)
+        return JsonResponse({'status': 'success'})
+
+    def form_invalid(self, form):
+        return JsonResponse(form.errors, status=400)

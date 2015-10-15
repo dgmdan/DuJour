@@ -35,7 +35,7 @@ L.imageOverlay(url, bounds).addTo(map);
 map.setMaxBounds(bounds);
 
 // open modal to ask for quantity + comments on item click
-$("#edit-dialog").dialog({
+$("#item-dialog").dialog({
 	autoOpen: false,
 	width: 400,
 	buttons: [
@@ -48,14 +48,15 @@ $("#edit-dialog").dialog({
                     dataType: "json",
                     data : {
                         menu_item_id: $('#menu-item-id').val(),
-                        quantity: $('#quantity').val(),
-                        comments: $('#comments').val(),
+                        quantity: $('#quantity-field').val(),
+                        comments: $('#comments-field').val(),
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                         },
                     success : function(json) {
                         if (json['status'] === 'success')
                         {
-                            location.reload();
+                            $('#cart').show();
+                            $('#cart').append("<hr/>" + $('#quantity-field').val() + ' ' + $('#item-name').html());
                         }
                         else
                         {
@@ -78,15 +79,20 @@ $("#edit-dialog").dialog({
 	]
 });
 
-function editRegion(menuItemId) {
+function addItem(menuItemId, menuItemName) {
     $('#menu-item-id').val(menuItemId);
-	$("#edit-dialog").dialog('open');
+    $('#quantity-field').val('1');
+    $('#comments-field').val('');
+    $('#item-name').html(menuItemName);
+    $('#item-dialog').dialog( "option", "title", "Add Item" );
+	$('#item-dialog').dialog('open');
+    $('#comments-field').focus();
 	event.preventDefault();
 }
 
 // draw menu item regions
 {% for region in region_list %}
-L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map).on('click', function(e) { editRegion({{region.id}}); });
+L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {{ region.sw_lng }}]], {color: "#ff7800", weight: 1}).addTo(map).on('click', function(e) { addItem({{region.id}}, "{{region.menu_item.name|escapejs}}"); });
 {% endfor %}
 
 </script>
@@ -98,11 +104,16 @@ L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {
 {% endblock %}
 
 {% block content %}
+<div id="cart">
+    <h2>My Order</h2>
+</div>
+
 <div id="map">
 </div>
 
-<div id="edit-dialog" title="Add Item">
+<div id="item-dialog">
     <input type="hidden" name="menu_item_id" id="menu-item-id"/>
+    <span id="item-name"></span><hr/>
     <label for="quantity-field">Quantity</label>
     <input type="text" id="quantity-field" name="quantity" value="1" size="2"/><br/>
     <label for="comments-field">Special&nbsp;Instructions/Comments</label><br/>
