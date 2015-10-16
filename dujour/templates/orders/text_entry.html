@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load static %}
+
+{% block js-body %}
+<script type="text/javascript">
+</script>
+{% endblock js-body %}
+
+{% block css-headers %}
+<link rel="stylesheet" href="{% static 'dujour/css/text_entry.css' %}" />
+{% endblock css-headers %}
+
+{% block content %}
+<form action="{% url 'text_place_order' %}" method="post">
+    {% csrf_token %}
+    <label for="comments-field">Item&nbsp;Name&nbsp;and&nbsp;Special&nbsp;Instructions</label><br/>
+    <textarea id="comments-field" name="comments"></textarea><br/>
+    <label for="quantity-field">Quantity</label>
+    <input type="text" id="quantity-field" name="quantity" value="1" size="2"/><br/>
+    <input type="submit" value="Add Item"/>
+</form>
+{% endblock %}

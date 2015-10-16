@@ -26,3 +26,8 @@ class GraphicalOrderEntryView(FormView):
 
     def form_invalid(self, form):
         return JsonResponse(form.errors, status=400)
+
+class TextOrderEntryView(FormView):
+    template_name = 'orders/text_entry.html'
+    form_class = AddItemForm
+    success_url = '/orders/'
