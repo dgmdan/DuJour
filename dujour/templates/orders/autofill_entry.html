@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load static %}
+
+{% block js-body %}
+    <script type="text/javascript">
+        $(function() {
+            var availableItems = [
+                {% for item in menu_items %}
+                    { label: '{{item.name|escapejs}}', value: {{ item.pk }} },
+                {% endfor %}
+            ];
+            $( "#item-name-field" ).autocomplete({
+                source: availableItems,
+                select: function(event, ui) {
+                    event.preventDefault();
+                    $("#menu-item-id").val(ui.item.value);
+                    $("#item-name-field").val(ui.item.label);
+                },
+                focus: function( event, ui ) {
+                    event.preventDefault();
+                    $("#item-name-field").val(ui.item.label);
+                }
+            });
+        });
+    </script>
+{% endblock js-body %}
+
+{% block css-headers %}
+    <link rel="stylesheet" href="{% static 'dujour/css/autofill_entry.css' %}" />
+{% endblock css-headers %}
+
+{% block content %}
+    {% if form.errors %}
+        <ul>
+            {% for field in form %}
+                {% if field.errors %}
+                <li><strong>{{ field.label_tag }} {{ field.errors }}</strong></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="{% url 'autofill_place_order' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="menu_item_id" id="menu-item-id"/>
+
+        <label for="item-name-field">Item Name</label>
+        <input type="text" id="item-name-field" name="item_name"/><br/>
+
+        <label for="comments-field">Special&nbsp;Instructions</label><br/>
+        <textarea id="comments-field" name="comments"></textarea><br/>
+
+        <label for="quantity-field">Quantity</label>
+        <input type="text" id="quantity-field" name="quantity" value="1" size="2"/><br/>
+
+        <input type="submit" value="Add Item"/>
+    </form>
+{% endblock %}
