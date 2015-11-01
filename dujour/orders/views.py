@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView
 import datetime
 
 from dujour.orders.forms import AddItemForm
+from dujour.orders.models import Order
 from dujour.restaurants.models import Restaurant, DayRestaurant, MenuItemRegion, Menu, MenuItem
 
 class GraphicalOrderEntryView(FormView):
@@ -30,12 +31,12 @@ class GraphicalOrderEntryView(FormView):
 class TextOrderEntryView(FormView):
     template_name = 'orders/text_entry.html'
     form_class = AddItemForm
-    success_url = '/orders/'
+    success_url = '/'
 
 class AutoFillOrderEntryView(FormView):
     template_name = 'orders/autofill_entry.html'
     form_class = AddItemForm
-    success_url = '/orders/'
+    success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super(AutoFillOrderEntryView, self).get_context_data(**kwargs)
@@ -48,3 +49,19 @@ class AutoFillOrderEntryView(FormView):
     def form_valid(self, form):
         form.add_item(self.request.user)
         return super(AutoFillOrderEntryView, self).form_valid(form)
+
+class HistoryOrderEntryView(FormView):
+    template_name = 'orders/history_entry.html'
+    form_class = AddItemForm
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super(HistoryOrderEntryView, self).get_context_data(**kwargs)
+        restaurant = DayRestaurant.objects.get(day_of_week=datetime.datetime.today().weekday()).restaurant
+        past_orders = Order.objects.filter(user=self.request.user, menu_item__menu__restaurant=restaurant)
+        context['past_orders'] = past_orders
+        return context
+
+    def form_valid(self, form):
+        form.add_item(self.request.user)
+        return super(HistoryOrderEntryView, self).form_valid(form)

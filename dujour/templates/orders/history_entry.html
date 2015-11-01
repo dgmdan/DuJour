@@ -1,0 +1,16 @@
+<p>Here are your past orders at today's restaurant:</p>
+{% for order in past_orders %}
+    <div class="past-order">
+        <form action="{% url 'history_place_order' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="comments" value="{{ order.comments|escape }}"/>
+            <input type="hidden" name="quantity" value="1"/>
+            <input type="submit" value="Add to Order"/>
+            {% if order.menu_item %}
+                <input type="hidden" name="menu_item_id" value="{{ order.menu_item.id }}"/>
+                <b>Item</b>: {{ order.menu_item.name }}<br/>
+            {% endif %}
+            <b>Comments</b>: {{ order.comments }}
+        </form>
+    </div>
+{% endfor %}
