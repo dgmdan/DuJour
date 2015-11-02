@@ -13,3 +13,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.menu_item.name
+
+    def extended_price(self):
+        return self.quantity * self.menu_item.price

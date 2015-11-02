@@ -1,7 +1,7 @@
+from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, View
-from django.views.generic.base import TemplateView
+from django.views.generic import ListView, UpdateView, DeleteView
 from django.views.generic.edit import FormView
 import datetime
 
@@ -31,12 +31,16 @@ class GraphicalOrderEntryView(FormView):
 class TextOrderEntryView(FormView):
     template_name = 'orders/text_entry.html'
     form_class = AddItemForm
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('cart')
 
 class AutoFillOrderEntryView(FormView):
     template_name = 'orders/autofill_entry.html'
     form_class = AddItemForm
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('cart')
 
     def get_context_data(self, **kwargs):
         context = super(AutoFillOrderEntryView, self).get_context_data(**kwargs)
@@ -53,7 +57,9 @@ class AutoFillOrderEntryView(FormView):
 class HistoryOrderEntryView(FormView):
     template_name = 'orders/history_entry.html'
     form_class = AddItemForm
-    success_url = '/'
+
+    def get_success_url(self):
+        return reverse('cart')
 
     def get_context_data(self, **kwargs):
         context = super(HistoryOrderEntryView, self).get_context_data(**kwargs)
@@ -65,3 +71,34 @@ class HistoryOrderEntryView(FormView):
     def form_valid(self, form):
         form.add_item(self.request.user)
         return super(HistoryOrderEntryView, self).form_valid(form)
+
+class CartView(ListView):
+    template_name = 'orders/cart.html'
+    model = Order
+
+    def get_queryset(self):
+        orders = Order.objects.filter(user=self.request.user, order_date=datetime.date.today())
+        return orders
+
+class UpdateOrderView(UpdateView):
+    model = Order
+    fields = ('quantity', 'comments',)
+
+    def get_success_url(self):
+        return reverse('cart')
+
+    def get_queryset(self):
+        orders = super(UpdateOrderView, self).get_queryset()
+        orders = orders.filter(user=self.request.user, order_date=datetime.date.today())
+        return orders
+
+class DeleteOrderView(DeleteView):
+    model = Order
+
+    def get_success_url(self):
+        return reverse('cart')
+
+    def get_queryset(self):
+        orders = super(DeleteOrderView, self).get_queryset()
+        orders = orders.filter(user=self.request.user, order_date=datetime.date.today())
+        return orders
