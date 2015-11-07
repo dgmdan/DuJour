@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, DeleteView
@@ -64,7 +65,12 @@ class HistoryOrderEntryView(FormView):
     def get_context_data(self, **kwargs):
         context = super(HistoryOrderEntryView, self).get_context_data(**kwargs)
         restaurant = DayRestaurant.objects.get(day_of_week=datetime.datetime.today().weekday()).restaurant
-        past_orders = Order.objects.filter(user=self.request.user, menu_item__menu__restaurant=restaurant)
+        past_orders = Order.objects\
+            .filter(user=self.request.user, menu_item__menu__restaurant=restaurant, order_date__lt=datetime.datetime.today())\
+            .values('menu_item_id')\
+            .annotate(times_ordered=Count('menu_item_id'))\
+            .values('times_ordered', 'menu_item_id', 'menu_item__name', 'menu_item__price', 'comments')\
+            .order_by('-times_ordered')[:5]
         context['past_orders'] = past_orders
         return context
 

@@ -6,9 +6,10 @@
             <input type="hidden" name="comments" value="{{ order.comments|escape }}"/>
             <input type="hidden" name="quantity" value="1"/>
             <input type="submit" value="Add to Order"/>
-            {% if order.menu_item %}
-                <input type="hidden" name="menu_item_id" value="{{ order.menu_item.id }}"/>
-                <b>Item</b>: {{ order.menu_item.name }}<br/>
+            {% if order.menu_item_id %}
+                <input type="hidden" name="menu_item_id" value="{{ order.menu_item_id }}"/>
+                <b>Item</b>: {{ order.menu_item__name }}<br/>
+                <b>Times Ordered:</b> {{ order.times_ordered }}<br/>
             {% endif %}
             <b>Comments</b>: {{ order.comments }}
         </form>
