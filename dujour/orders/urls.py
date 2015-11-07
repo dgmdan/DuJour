@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
 from dujour.orders.views import GraphicalOrderEntryView, TextOrderEntryView, AutoFillOrderEntryView, \
-    HistoryOrderEntryView, CartView, UpdateOrderView, DeleteOrderView
+    HistoryOrderEntryView, CartView, UpdateOrderView, DeleteOrderView, ListOrdersView
 
 urlpatterns = [
     url(r'^$', login_required(GraphicalOrderEntryView.as_view())),
@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^cart/$', login_required(CartView.as_view()), name='cart'),
     url(r'^update/(?P<pk>[0-9]+)/$', login_required(UpdateOrderView.as_view()), name='update_order'),
     url(r'^delete/(?P<pk>[0-9]+)/$', login_required(DeleteOrderView.as_view()), name='delete_order'),
+    url(r'^list/$', login_required(ListOrdersView.as_view()), name='list_orders'),
 ]

@@ -12,6 +12,7 @@
 <a href="{% url 'home' %}">Home</a> |
 {% if user.is_authenticated %}
     <a href="{% url 'cart' %}">Cart</a> |
+    <a href="{% url 'list_orders' %}">List orders</a> |
     <a href="{% url 'account_logout' %}">Log out</a>
 {% endif %}
 <hr/>

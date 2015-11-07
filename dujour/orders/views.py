@@ -108,3 +108,11 @@ class DeleteOrderView(DeleteView):
         orders = super(DeleteOrderView, self).get_queryset()
         orders = orders.filter(user=self.request.user, order_date=datetime.date.today())
         return orders
+
+class ListOrdersView(ListView):
+    model = Order
+
+    def get_queryset(self):
+        orders = super(ListOrdersView, self).get_queryset()
+        orders = orders.filter(order_date=datetime.date.today())
+        return orders

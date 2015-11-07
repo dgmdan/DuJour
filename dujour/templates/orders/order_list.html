@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css-headers %}
+    <link href="{% static 'dujour/css/order_list.css' %}" rel="stylesheet"/>
+{% endblock css-headers %}
+
+{% block content %}
+    <table id="orders">
+    <thead>
+    <tr>
+        <td>Employee</td>
+        <td>Quantity</td>
+        <td>Item</td>
+        <td>Comments</td>
+    </tr>
+    </thead>
+    {% for order in object_list %}
+        <tr>
+            <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.menu_item.name }}</td>
+            <td>{{ order.comments }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock content %}
