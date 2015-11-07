@@ -1,37 +1,40 @@
-<h3>Items in cart: {{ object_list|length }}</h3>
+{% extends 'base.html' %}
 
-{% for order in object_list %}
-    <div class="cart-order">
-        <form action="{% url 'update_order' pk=order.pk %}" method="post">
-            {% csrf_token %}
+{% block content %}
+    <h3>Items in cart: {{ object_list|length }}</h3>
 
-            <p><b>Item:</b> {{ order.menu_item.name }}</p>
+    {% for order in object_list %}
+        <div class="cart-order">
+            <form action="{% url 'update_order' pk=order.pk %}" method="post">
+                {% csrf_token %}
 
-            <p><b>Price</b>:
-                {% if order.quantity == 1 %}
-                    ${{ order.menu_item.price|floatformat:2 }}</p>
-                {% else %}
-                    ${{ order.extended_price|floatformat:2 }} (${{ order.menu_item.price|floatformat:2 }} each)</p>
+                <p><b>Item:</b> {{ order.menu_item.name }}</p>
 
-                {% endif %}
+                <p><b>Price</b>:
+                    {% if order.quantity == 1 %}
+                        ${{ order.menu_item.price|floatformat:2 }}
+                    {% else %}
+                        ${{ order.extended_price|floatformat:2 }} (${{ order.menu_item.price|floatformat:2 }} each)
+                    {% endif %}
+                </p>
 
+                <p>
+                    <label for="quantity-field">Quantity:</label><br/>
+                    <input type="text" id="quantity-field" name="quantity" value="{{ order.quantity }}" size="2"/>
+                </p>
 
-            <p>
-                <label for="quantity-field">Quantity:</label><br/>
-                <input type="text" id="quantity-field" name="quantity" value="{{ order.quantity }}" size="2"/>
-            </p>
+                <p>
+                    <label for="comments-field">Item&nbsp;Name&nbsp;and&nbsp;Special&nbsp;Instructions</label><br/>
+                    <textarea id="comments-field" name="comments">{{ order.comments }}</textarea>
+                </p>
 
-            <p>
-                <label for="comments-field">Item&nbsp;Name&nbsp;and&nbsp;Special&nbsp;Instructions</label><br/>
-                <textarea id="comments-field" name="comments">{{ order.comments }}</textarea>
-            </p>
+                <input type="submit" value="Update Order"/>
+            </form>
 
-            <input type="submit" value="Update Order"/>
-        </form>
-
-        <form action="{% url 'delete_order' pk=order.pk %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Delete"/>
-        </form>
-    </div>
-{% endfor %}
+            <form action="{% url 'delete_order' pk=order.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete"/>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock content %}

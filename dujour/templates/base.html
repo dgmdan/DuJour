@@ -9,6 +9,12 @@
 {% block js-headers %}{% endblock %}
 </head>
 <body>
+<a href="{% url 'home' %}">Home</a> |
+{% if user.is_authenticated %}
+    <a href="{% url 'cart' %}">Cart</a> |
+    <a href="{% url 'account_logout' %}">Log out</a>
+{% endif %}
+<hr/>
 {% block content %}{% endblock %}
 {% block js-body %}{% endblock %}
 </body>
