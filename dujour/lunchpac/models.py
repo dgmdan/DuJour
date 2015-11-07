@@ -8,3 +8,10 @@ class Order(models.Model):
 	add_date = models.DateTimeField()
 	order_item = models.CharField(max_length=100)
 	comments = models.TextField(blank=True)
+
+class User(models.Model):
+    user_id = models.IntegerField()
+    name = models.CharField(max_length=30)
+    username = models.CharField(max_length=20)
+    email = models.CharField(max_length=30)
+    admin = models.BooleanField()
