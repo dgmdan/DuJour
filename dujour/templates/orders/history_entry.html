@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Here are your past orders at today's restaurant:</p>
+<p>Here are your past orders at today's restaurants:</p>
 {% for order in past_orders %}
     <div class="past-order">
         <form action="{% url 'history_place_order' %}" method="post">
             {% csrf_token %}
+            <input type="hidden" name="restaurant_id" value="{{ order.restaurant_id }}"/>
             <input type="hidden" name="comments" value="{{ order.comments }}"/>
             <input type="hidden" name="quantity" value="1"/>
             <input type="submit" value="Add to Order"/>

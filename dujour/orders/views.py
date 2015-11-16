@@ -36,6 +36,16 @@ class TextOrderEntryView(FormView):
     def get_success_url(self):
         return reverse('cart')
 
+    def get_context_data(self, **kwargs):
+        context = super(TextOrderEntryView, self).get_context_data(**kwargs)
+        day_restaurants = DayRestaurant.objects.filter(day_of_week=datetime.datetime.today().weekday())
+        context['restaurants'] = [dr.restaurant for dr in day_restaurants]
+        return context
+
+    def form_valid(self, form):
+        form.add_item(self.request.user)
+        return super(TextOrderEntryView, self).form_valid(form)
+
 class AutoFillOrderEntryView(FormView):
     template_name = 'orders/autofill_entry.html'
     form_class = AddItemForm
@@ -64,12 +74,12 @@ class HistoryOrderEntryView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(HistoryOrderEntryView, self).get_context_data(**kwargs)
-        restaurant = DayRestaurant.objects.get(day_of_week=datetime.datetime.today().weekday()).restaurant
+        restaurant_ids = [dr.restaurant.id for dr in DayRestaurant.objects.filter(day_of_week=datetime.datetime.today().weekday())]
         past_orders = Order.objects\
-            .filter(user=self.request.user, menu_item__menu__restaurant=restaurant, order_date__lt=datetime.datetime.today())\
+            .filter(user=self.request.user, restaurant_id__in=restaurant_ids, order_date__lt=datetime.datetime.today())\
             .values('menu_item_id')\
             .annotate(times_ordered=Count('menu_item_id'))\
-            .values('times_ordered', 'menu_item_id', 'menu_item__name', 'menu_item__price', 'comments')\
+            .values('times_ordered', 'menu_item_id', 'restaurant_id', 'menu_item__name', 'menu_item__price', 'comments')\
             .order_by('-times_ordered')[:5]
         context['past_orders'] = past_orders
         return context

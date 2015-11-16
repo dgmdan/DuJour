@@ -15,6 +15,12 @@
 {% block content %}
 <form action="{% url 'text_place_order' %}" method="post">
     {% csrf_token %}
+    <label for="restaurant-field">Restaurant</label><br/>
+    <select id="restaurant-field" name="restaurant_id">
+    {% for restaurant in restaurants %}
+        <option value="{{ restaurant.pk }}">{{ restaurant.name }}</option>
+    {% endfor %}
+    </select><br/>
     <label for="comments-field">Item&nbsp;Name&nbsp;and&nbsp;Special&nbsp;Instructions</label><br/>
     <textarea id="comments-field" name="comments"></textarea><br/>
     <label for="quantity-field">Quantity</label>
