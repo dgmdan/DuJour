@@ -43,7 +43,7 @@ $("#item-dialog").dialog({
 			text: "Add to My Order",
 			click: function() {
                 $.ajax({
-                    url : "{% url 'graphical_place_order' %}",
+                    url : "{% url 'graphical_place_order' restaurant.pk %}",
                     type : "POST",
                     dataType: "json",
                     data : {
@@ -107,6 +107,8 @@ L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {
 <div id="cart">
     <h2>My Order</h2>
 </div>
+
+<p><b>Restaurant:</b> {{ restaurant.name }}</p>
 
 <div id="map">
 </div>

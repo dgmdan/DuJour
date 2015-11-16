@@ -10,14 +10,24 @@ from dujour.orders.forms import AddItemForm
 from dujour.orders.models import Order
 from dujour.restaurants.models import Restaurant, DayRestaurant, MenuItemRegion, Menu, MenuItem
 
+class GraphicalListRestaurantsView(ListView):
+    template_name = 'orders/graphical_list_restaurants.html'
+    model = Restaurant
+
+    def get_queryset(self):
+        day_restaurants = DayRestaurant.objects.filter(day_of_week=datetime.datetime.today().weekday())
+        restaurants = [dr.restaurant for dr in day_restaurants]
+        return restaurants
+
 class GraphicalOrderEntryView(FormView):
     template_name = 'orders/graphical_entry.html'
     form_class = AddItemForm
 
     def get_context_data(self, **kwargs):
         context = super(GraphicalOrderEntryView, self).get_context_data(**kwargs)
-        restaurant = DayRestaurant.objects.get(day_of_week=datetime.datetime.today().weekday()).restaurant
+        restaurant = Restaurant.objects.get(pk=self.kwargs['restaurant_id'])
         menu = Menu.objects.get(restaurant=restaurant)
+        context['restaurant'] = restaurant
         context['object'] = menu
         context['region_list'] = MenuItemRegion.objects.filter(menu_item__menu=menu)
         return context

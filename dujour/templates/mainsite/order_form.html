@@ -4,7 +4,7 @@
 <p>Good morning, {{ user_first_name }}. How would you like to place your order?</p>
 <ul>
     <li><a href="{% url 'history_place_order' %}">See my past orders</a></li>
-    <li><a href="{% url 'graphical_place_order' %}">Interactive, graphical menu</a>  <strong>Recommended</strong></li>
+    <li><a href="{% url 'graphical_list_restaurants' %}">Interactive, graphical menu</a>  <strong>Recommended</strong></li>
     <li><a href="{% url 'autofill_place_order' %}">Text field with autocomplete of available menu items</a></li>
     <li><a href="{% url 'text_place_order' %}">Free-entry text field</a></li>
 </ul>

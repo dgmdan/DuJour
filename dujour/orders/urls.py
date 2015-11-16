@@ -3,11 +3,13 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
 from dujour.orders.views import GraphicalOrderEntryView, TextOrderEntryView, AutoFillOrderEntryView, \
-    HistoryOrderEntryView, CartView, UpdateOrderView, DeleteOrderView, ListOrdersView
+    HistoryOrderEntryView, CartView, UpdateOrderView, DeleteOrderView, ListOrdersView, \
+    GraphicalListRestaurantsView
 
 urlpatterns = [
     url(r'^$', login_required(GraphicalOrderEntryView.as_view())),
-    url(r'^graphical/$', login_required(GraphicalOrderEntryView.as_view()), name='graphical_place_order'),
+    url(r'^graphical/$', login_required(GraphicalListRestaurantsView.as_view()), name='graphical_list_restaurants'),
+    url(r'^graphical/(?P<restaurant_id>[0-9]+)/$', login_required(GraphicalOrderEntryView.as_view()), name='graphical_place_order'),
     url(r'^text/$', login_required(TextOrderEntryView.as_view()), name='text_place_order'),
     url(r'^autofill/$', login_required(AutoFillOrderEntryView.as_view()), name='autofill_place_order'),
     url(r'^history/$', login_required(HistoryOrderEntryView.as_view()), name='history_place_order'),

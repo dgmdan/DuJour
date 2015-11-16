@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Select the restaurant you'd like to order from:</p>
+    <ul>
+        {% for restaurant in object_list %}
+            <li><a href="{% url 'graphical_place_order' restaurant.pk %}">{{ restaurant.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
