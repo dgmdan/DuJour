@@ -89,7 +89,7 @@ class HistoryOrderEntryView(FormView):
             .filter(user=self.request.user, restaurant_id__in=restaurant_ids, order_date__lt=datetime.datetime.today())\
             .values('menu_item_id')\
             .annotate(times_ordered=Count('menu_item_id'))\
-            .values('times_ordered', 'menu_item_id', 'restaurant_id', 'menu_item__name', 'menu_item__price', 'comments')\
+            .values('times_ordered', 'menu_item_id', 'restaurant_id', 'restaurant__name', 'menu_item__name', 'menu_item__price', 'comments')\
             .order_by('-times_ordered')[:5]
         context['past_orders'] = past_orders
         return context

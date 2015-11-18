@@ -9,13 +9,14 @@
             <input type="hidden" name="restaurant_id" value="{{ order.restaurant_id }}"/>
             <input type="hidden" name="comments" value="{{ order.comments }}"/>
             <input type="hidden" name="quantity" value="1"/>
-            <input type="submit" value="Add to Order"/>
+            <b>Restaurant:</b> {{ order.restaurant__name }}<br/>
             {% if order.menu_item_id %}
                 <input type="hidden" name="menu_item_id" value="{{ order.menu_item_id }}"/>
                 <b>Item</b>: {{ order.menu_item__name }}<br/>
                 <b>Times Ordered:</b> {{ order.times_ordered }}<br/>
             {% endif %}
-            <b>Comments</b>: {{ order.comments }}
+            <b>Comments</b>: {{ order.comments }}<br/>
+            <input type="submit" value="Add to Order"/>
         </form>
     </div>
 {% endfor %}
