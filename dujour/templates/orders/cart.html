@@ -8,6 +8,8 @@
             <form action="{% url 'update_order' pk=order.pk %}" method="post">
                 {% csrf_token %}
 
+            <p><b>Restaurant:</b> {{ order.restaurant.name }}</p>
+
                 <p><b>Item:</b> {{ order.menu_item.name }}</p>
 
                 <p><b>Price</b>:
