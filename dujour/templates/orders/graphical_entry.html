@@ -47,6 +47,7 @@ $("#item-dialog").dialog({
                     type : "POST",
                     dataType: "json",
                     data : {
+                        restaurant_id: $('#restaurant-id').val(),
                         menu_item_id: $('#menu-item-id').val(),
                         quantity: $('#quantity-field').val(),
                         comments: $('#comments-field').val(),
@@ -55,8 +56,7 @@ $("#item-dialog").dialog({
                     success : function(json) {
                         if (json['status'] === 'success')
                         {
-                            $('#cart').show();
-                            $('#cart').append("<hr/>" + $('#quantity-field').val() + ' ' + $('#item-name').html());
+                            window.location.replace(json['redirect_url']);
                         }
                         else
                         {
@@ -80,6 +80,7 @@ $("#item-dialog").dialog({
 });
 
 function addItem(menuItemId, menuItemName) {
+    $('#restaurant-id').val({{ restaurant.pk }})
     $('#menu-item-id').val(menuItemId);
     $('#quantity-field').val('1');
     $('#comments-field').val('');
@@ -104,16 +105,13 @@ L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {
 {% endblock %}
 
 {% block content %}
-<div id="cart">
-    <h2>My Order</h2>
-</div>
-
 <p><b>Restaurant:</b> {{ restaurant.name }}</p>
 
 <div id="map">
 </div>
 
 <div id="item-dialog">
+    <input type="hidden" name="restaurant_id" id="restaurant-id"/>
     <input type="hidden" name="menu_item_id" id="menu-item-id"/>
     <span id="item-name"></span><hr/>
     <label for="quantity-field">Quantity</label>

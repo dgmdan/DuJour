@@ -34,7 +34,7 @@ class GraphicalOrderEntryView(FormView):
 
     def form_valid(self, form):
         form.add_item(self.request.user)
-        return JsonResponse({'status': 'success'})
+        return JsonResponse({'status': 'success', 'redirect_url': reverse('cart')})
 
     def form_invalid(self, form):
         return JsonResponse(form.errors, status=400)
