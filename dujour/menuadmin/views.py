@@ -15,6 +15,9 @@ class MenuAdminRestaurantView(ListView):
     template_name = 'menuadmin/restaurant.html'
     model = Menu
 
+    def get_queryset(self):
+        return Menu.objects.filter(restaurant_id=self.kwargs['restaurant_id'])
+
 class MenuAdminMenuView(DetailView):
     template_name = 'menuadmin/menu.html'
     model = Menu
