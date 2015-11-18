@@ -65,9 +65,9 @@ class AutoFillOrderEntryView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(AutoFillOrderEntryView, self).get_context_data(**kwargs)
-        restaurant = DayRestaurant.objects.get(day_of_week=datetime.datetime.today().weekday()).restaurant
-        menu = Menu.objects.get(restaurant=restaurant)
-        menu_items = MenuItem.objects.filter(menu=menu)
+        restaurants = [dr.restaurant for dr in DayRestaurant.objects.filter(day_of_week=datetime.datetime.today().weekday())]
+        menus = Menu.objects.filter(restaurant__in=restaurants)
+        menu_items = MenuItem.objects.filter(menu__in=menus)
         context['menu_items'] = menu_items
         return context
 

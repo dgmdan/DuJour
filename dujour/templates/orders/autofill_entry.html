@@ -8,13 +8,18 @@
         $(function() {
             var availableItems = [
                 {% for item in menu_items %}
-                    { label: '{{item.name|escapejs}}', value: {{ item.pk }} },
+                    {
+                        restaurant_id: {{ item.menu.restaurant.pk }},
+                        label: '{{ item.name|escapejs }} ({{ item.menu.restaurant.name|escapejs }})',
+                        value: {{ item.pk }},
+                    },
                 {% endfor %}
             ];
             $( "#item-name-field" ).autocomplete({
                 source: availableItems,
                 select: function(event, ui) {
                     event.preventDefault();
+                    $("#restaurant-id").val(ui.item.restaurant_id);
                     $("#menu-item-id").val(ui.item.value);
                     $("#item-name-field").val(ui.item.label);
                 },
@@ -44,6 +49,7 @@
 
     <form action="{% url 'autofill_place_order' %}" method="post">
         {% csrf_token %}
+        <input type="hidden" name="restaurant_id" id="restaurant-id"/>
         <input type="hidden" name="menu_item_id" id="menu-item-id"/>
 
         <label for="item-name-field">Item Name</label>
