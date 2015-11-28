@@ -40,12 +40,19 @@ class Menu(models.Model):
 class MenuItem(models.Model):
     menu = models.ForeignKey(Menu)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(decimal_places=6,max_digits=9)
+    price = models.DecimalField(decimal_places=6, max_digits=9)
 
 class MenuItemType(models.Model):
     menu_item = models.ForeignKey(MenuItem)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(decimal_places=6,max_digits=9)
+    is_required = models.BooleanField(default=False)
+    is_base_price = models.BooleanField(default=False)
+    allow_many = models.BooleanField(default=False)
+
+class MenuItemTypeOption(models.Model):
+    menu_item_type = models.ForeignKey(MenuItemType)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(decimal_places=6, max_digits=9, null=True)
 
 class MenuItemRegion(models.Model):
     menu_item = models.ForeignKey(MenuItem)
