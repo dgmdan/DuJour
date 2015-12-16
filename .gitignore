@@ -71,3 +71,6 @@ db.sqlite3
 # Sublime
 *.sublime-workspace
 *.sublime-project
+
+# venv config
+.python-version
