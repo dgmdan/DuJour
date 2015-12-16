@@ -153,6 +153,7 @@ function editRegion(region_id)
         locationFilter.enable();
     });
     $('#but-create').hide();
+    $('#but-options').show()
     $('#but-update').show();
     $('#but-delete').show();
 }
@@ -183,6 +184,7 @@ L.rectangle([[{{ region.ne_lat }}, {{ region.ne_lng }}], [{{ region.sw_lat }}, {
     Menu item name: <input type="text" id="menu_item_name" style="width:300px"/><br/>
     Menu item price: <input type="text" id="menu_item_price"/><br/>
     <input type="button" id="but-create" value="Create"/>
+    <input type="button" id="but-options" value="Manage Options" style="display:none"/>
     <input type="button" id="but-update" value="Update" style="display:none"/>
     <input type="button" id="but-delete" value="Delete" style="display:none"/>
 </p>
