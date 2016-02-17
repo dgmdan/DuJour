@@ -134,5 +134,5 @@ class ListOrdersView(ListView):
 
     def get_queryset(self):
         orders = super(ListOrdersView, self).get_queryset()
-        orders = orders.filter(order_date=datetime.date.today())
+        orders = orders.filter(order_date=datetime.date.today()).order_by('restaurant__name')
         return orders
