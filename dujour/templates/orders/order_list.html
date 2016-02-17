@@ -7,23 +7,36 @@
 {% endblock css-headers %}
 
 {% block content %}
-    <table id="orders">
-    <thead>
-    <tr>
-        <td>Employee</td>
-        <td>Quantity</td>
-        <td>Item</td>
-        <td>Comments</td>
-    </tr>
-    </thead>
-    {% for order in object_list %}
+    {% regroup object_list by restaurant as restaurant_list %}
+    {% for restaurant in restaurant_list %}
+
+        {% if not forloop.first %}
+            <div class="page-break"></div>
+        {% endif %}
+
+        <h3>Restaurant: {{ restaurant.grouper.name }}</h3>
+
+        <table>
+        <thead>
         <tr>
-            <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>{{ order.menu_item.name }}</td>
-            <td>{{ order.comments }}</td>
+            <td>Employee</td>
+            <td>Quantity</td>
+            <td>Item</td>
+            <td>Comments</td>
         </tr>
+        </thead>
+        {% for order in restaurant.list %}
+            <tr>
+                <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.menu_item.name }}</td>
+                <td>{{ order.comments }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
     {% endfor %}
-    </table>
+
+
 
 {% endblock content %}
