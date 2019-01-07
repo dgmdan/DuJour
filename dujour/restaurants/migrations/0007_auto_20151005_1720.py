@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=255)),
                 ('price', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('menu', models.ForeignKey(to='restaurants.Menu')),
+                ('menu', models.ForeignKey(to='restaurants.Menu', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('sw_lat', models.FloatField()),
                 ('ne_lng', models.FloatField()),
                 ('ne_lat', models.FloatField()),
-                ('menu_item', models.ForeignKey(to='restaurants.MenuItem')),
+                ('menu_item', models.ForeignKey(to='restaurants.MenuItem', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -37,12 +37,12 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('name', models.CharField(max_length=255)),
                 ('price', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('menu_item', models.ForeignKey(to='restaurants.MenuItem')),
+                ('menu_item', models.ForeignKey(to='restaurants.MenuItem', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='menuitemregion',
             name='menu_item_type',
-            field=models.ForeignKey(to='restaurants.MenuItemType', null=True),
+            field=models.ForeignKey(to='restaurants.MenuItemType', on_delete=models.CASCADE, null=True),
         ),
     ]

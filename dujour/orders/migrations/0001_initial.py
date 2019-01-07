@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('order_date', models.DateField()),
                 ('quantity', models.IntegerField()),
                 ('comments', models.TextField(blank=True)),
-                ('menu_item', models.ForeignKey(to='restaurants.MenuItem')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('menu_item', models.ForeignKey(to='restaurants.MenuItem', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
     ]

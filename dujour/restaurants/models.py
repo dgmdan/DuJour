@@ -30,33 +30,33 @@ class DayRestaurant(models.Model):
         (5, 'Saturday'),
         (6, 'Sunday'),
     )
-    restaurant = models.ForeignKey(Restaurant)
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE)
     day_of_week = models.IntegerField(choices=DAY_CHOICES)
 
 class Menu(models.Model):
-    restaurant = models.ForeignKey(Restaurant)
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE)
     file = models.ImageField(upload_to='static/menus/', validators=[validate_file_extension])
 
 class MenuItem(models.Model):
-    menu = models.ForeignKey(Menu)
+    menu = models.ForeignKey('Menu', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.DecimalField(decimal_places=6, max_digits=9)
 
 class MenuItemType(models.Model):
-    menu_item = models.ForeignKey(MenuItem)
+    menu_item = models.ForeignKey('MenuItem', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     is_required = models.BooleanField(default=False)
     is_base_price = models.BooleanField(default=False)
     allow_many = models.BooleanField(default=False)
 
 class MenuItemTypeOption(models.Model):
-    menu_item_type = models.ForeignKey(MenuItemType)
+    menu_item_type = models.ForeignKey('MenuItemType', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     price = models.DecimalField(decimal_places=6, max_digits=9, null=True)
 
 class MenuItemRegion(models.Model):
-    menu_item = models.ForeignKey(MenuItem)
-    menu_item_type = models.ForeignKey(MenuItemType, null=True)
+    menu_item = models.ForeignKey('MenuItem', on_delete=models.CASCADE)
+    menu_item_type = models.ForeignKey('MenuItemType', null=True, on_delete=models.CASCADE)
     sw_lng = models.FloatField()
     sw_lat = models.FloatField()
     ne_lng = models.FloatField()

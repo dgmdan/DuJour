@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^$', login_required(OrderFormView.as_view()), name='home'),
     url(r'^menuadmin/', include('dujour.menuadmin.urls')),
     url(r'^orders/', include('dujour.orders.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

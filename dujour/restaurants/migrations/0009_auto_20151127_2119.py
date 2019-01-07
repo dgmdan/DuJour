@@ -36,6 +36,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='menuitemtypeoption',
             name='menu_item_type',
-            field=models.ForeignKey(to='restaurants.MenuItemType'),
+            field=models.ForeignKey(to='restaurants.MenuItemType', on_delete=models.CASCADE),
         ),
     ]

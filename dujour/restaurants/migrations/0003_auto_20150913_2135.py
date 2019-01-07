@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('file', models.FileField(upload_to=b'menus/')),
-                ('restaurant', models.ForeignKey(to='restaurants.Restaurant')),
+                ('restaurant', models.ForeignKey(to='restaurants.Restaurant', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AlterModelOptions(

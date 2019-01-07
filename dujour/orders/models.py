@@ -6,9 +6,9 @@ from dujour.restaurants.models import MenuItem, Restaurant, MenuItemTypeOption
 
 class Order(models.Model):
     order_date = models.DateField()
-    user = models.ForeignKey(User)
-    restaurant = models.ForeignKey(Restaurant)
-    menu_item = models.ForeignKey(MenuItem, null=True)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    restaurant = models.ForeignKey('restaurants.Restaurant', on_delete=models.CASCADE)
+    menu_item = models.ForeignKey('restaurants.MenuItem', null=True, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     comments = models.TextField(blank=True)
 
@@ -19,5 +19,5 @@ class Order(models.Model):
         return self.quantity * self.menu_item.price
 
 class OrderMenuItemTypeOption(models.Model):
-    order = models.ForeignKey(Order)
-    menu_item_type_option = models.ForeignKey(MenuItemTypeOption)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    menu_item_type_option = models.ForeignKey('restaurants.MenuItemTypeOption', on_delete=models.CASCADE)

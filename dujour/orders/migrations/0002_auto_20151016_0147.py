@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='order',
             name='menu_item',
-            field=models.ForeignKey(null=True, to='restaurants.MenuItem'),
+            field=models.ForeignKey(null=True, to='restaurants.MenuItem', on_delete=models.CASCADE),
         ),
     ]

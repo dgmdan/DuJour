@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             name='OrderMenuItemTypeOption',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-                ('menu_item_type_option', models.ForeignKey(to='restaurants.MenuItemTypeOption')),
-                ('order', models.ForeignKey(to='orders.Order')),
+                ('menu_item_type_option', models.ForeignKey(to='restaurants.MenuItemTypeOption', on_delete=models.CASCADE)),
+                ('order', models.ForeignKey(to='orders.Order', on_delete=models.CASCADE)),
             ],
         ),
     ]
