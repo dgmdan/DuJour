@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/nihalpd/DuJour.svg?branch=develop)](https://travis-ci.org/nihalpd/DuJour)
-[![Coverage Status](https://coveralls.io/repos/nihalpd/DuJour/badge.svg?branch=develop&service=github)](https://coveralls.io/github/nihalpd/DuJour?branch=develop)
 # DuJour
 
  "It's the soup of the day."
@@ -11,8 +9,8 @@ We're in early development so functionality is minimal for now.
 
 
 ## Tech Stack
-* Django (1.8.4)
-* Python (3.4.2)
+* Django (2.1.5)
+* Python (3.7.1)
 * nginx
 * sqlite3
 
@@ -28,7 +26,7 @@ sqlite Documentation - https://www.sqlite.org/docs.html
 
 
 ## Setting up dev environment
-* Install Python 3.4
+* Install Python 3.7
 * Create a venv for this project.
 On Windows:
 
