@@ -1,7 +1,7 @@
 certifi==2023.7.22
 chardet==3.0.4
 defusedxml==0.7.1
-Django==3.2.23
+Django==3.2.25
 django-allauth==0.43
 idna==3.7
 mysqlclient==1.3.14
