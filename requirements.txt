@@ -3,7 +3,7 @@ chardet==3.0.4
 defusedxml==0.7.1
 Django==3.2.23
 django-allauth==0.43
-idna==2.8
+idna==3.7
 mysqlclient==1.3.14
 oauthlib==1.0.3
 pbr==1.8.0
